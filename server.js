@@ -17,8 +17,11 @@ app.get('/items', async(req, res) => {
     await open();
     res.json(items);
 });
-app.get('/items/:id', (req, res) => {
-    res.send(`${req.params.id}`);
+app.get('/items/:id', async(req, res) => {
+    const id = req.params.id;
+    await open();
+    const index = items.findIndex(item => item.id === id);
+    res.json(items[index]);
 });
 app.put('/items/:id', async(req, res) => {
     const id = req.params.id;
