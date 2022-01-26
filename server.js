@@ -27,7 +27,10 @@ app.put('/items/:id', async(req, res) => {
     const id = req.params.id;
     await open();
     const index = items.findIndex(item => item.id === id);
-    items[index].completed = !items[index].completed;
+    items[index].title = req.body.title || items[index].title;
+    items[index].quantity = req.body.quantity || items[index].quantity;
+    items[index].price = req.body.price || items[index].price;
+    items[index].completed = req.body.completed || false;
     await save();
     res.json(items[index]);
 });
